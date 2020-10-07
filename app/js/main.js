@@ -12,13 +12,13 @@ Highcharts.setOptions({
     }
 });
 
-let chartId = document.getElementById("chart-container");
+let chartIdGold = document.getElementById("chart-container-gold-oct-7");
 
 // checks for the chart ID and displays a backup image if the browser can't find it
 setTimeout(function() {
-    if(chartId.innerHTML === "") {
+    if(chartIdGold.innerHTML === "") {
         // console.log('noId');
-        let chartArea = document.getElementsByClassName("chart-area");
+        let chartArea = document.getElementsByClassName("chart-area-gold-oct-7");
         for(var i = 0; i < chartArea.length; i++) {
             chartArea[i].style.display = "none";
         } 
@@ -30,50 +30,46 @@ setTimeout(function() {
 },500);
 
 function drawHighcharts() {
-    Highcharts.chart(chartId, {
+    Highcharts.chart(chartIdGold, {
         chart: {
-            type: 'bar',
+            type: 'line',
             styledMode: true,
             spacingBottom: 25,
             spacingRight: 100,
-            spacingLeft: 0,
+            spacingLeft: 10,
             spacingTop: 20
         }, 
         title: {
             text: null
         },
         data: {
-            googleSpreadsheetKey: '1YOKb5l2VM4aAB2r20N_1aT_1vEajYrP3U-U3A6lZbC0'
+            googleSpreadsheetKey: '18_ItFBoHFQ5VO3rB8N7810fv2VPNrHfA8_GjpemEuCI'
         },
         // for bar charts only
-        plotOptions: {
-            series: {
-                groupPadding: 0.1
-            } 
-        },
-        // for line charts only
         // plotOptions: {
         //     series: {
-        //         lineWidth: 1,
-        //         // clip: false,
-        //         marker: {
-        //             enabled: false,
-        //             symbol: 'circle',
-        //             fillColor: '#ffffff',
-        //             states: {
-        //                 hover: {
-        //                     fillColor: '#ffffff'
-        //                 }
-        //             }
-        //         }
-        //     }
+        //         groupPadding: 0.1
+        //     } 
         // },
+        // for line charts only
+        plotOptions: {
+            series: {
+                lineWidth: 1,
+                // clip: false,
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    fillColor: '#ffffff',
+                    states: {
+                        hover: {
+                            fillColor: '#ffffff'
+                        }
+                    }
+                }
+            }
+        },
         legend: {
-            align: 'right',
-            symbolRadius: 0,
-            verticalAlign: 'top',
-            x: 10,
-            itemMarginTop: -10
+            enabled: false
         },
         xAxis: {
             labels: {
@@ -92,12 +88,11 @@ function drawHighcharts() {
             title: false,
             labels: {
                 useHTML: true,
-                overflow: 'allow'
+                overflow: 'allow',            formatter: function () {
+                    return Highcharts.numberFormat(this.value,0,'.',',');
+                },
             },
             // adds commas to thousands
-            // formatter: function () {
-            //     return Highcharts.numberFormat(this.value,0,'.',',');
-            // },
         },
         credits: {
             enabled: false
